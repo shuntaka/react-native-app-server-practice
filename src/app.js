@@ -4,7 +4,9 @@ const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 
 const app = express();
-const mongoUri = "mongodb://localhost:27017";
+const mongoUri =
+  "mongodb+srv://shun:Sh696ouji3mAMoN@cluster0-fgiyc.mongodb.net/test?retryWrites=true&w=majority";
+// const mongoUri = "mongodb://localhost:27017";
 
 mongoose.connect(mongoUri, {
   useNewUrlParser: true,
