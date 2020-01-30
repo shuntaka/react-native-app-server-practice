@@ -4,7 +4,8 @@ const Schema = mongoose.Schema;
 const ScheduleSchema = new Schema({
   date: Date,
   numberOfAttendee: Number,
-  nurseAttendance: Boolean
+  nurseAttendance: Boolean,
+  location: String
 });
 
 const Schedule =

@@ -19,6 +19,7 @@ const scheduleController = {
     // get parameters string
     const begginDateString = req.query.begginDate;
     const endDateString = req.query.endDate;
+    const location = req.query.location;
 
     // decode parameter
     const begginDate = new Date(begginDateString);
@@ -27,7 +28,8 @@ const scheduleController = {
     // use parameters
     if (begginDate && endDate) {
       Schedule.find({
-        date: { $gte: begginDate, $lte: endDate }
+        date: { $gte: begginDate, $lte: endDate },
+        location
       }).then(schedules => res.send(schedules));
     } else {
       Schedule.find({}).then(schedules => res.send(schedules));
