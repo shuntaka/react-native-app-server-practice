@@ -28,6 +28,10 @@ const routes = app => {
     ScheduleController.modifyNurseAttendance
   );
   app.delete("/schedules/:id", ScheduleController.delete);
+
+  // group route
+  app.post("/groups", GroupController, create);
+  app.get("/groups", GroupController.fetchGroups);
 };
 
 module.exports = routes;
