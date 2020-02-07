@@ -1,6 +1,7 @@
 const BlogController = require("../controllers/blogController");
 const CommentController = require("../controllers/commentController");
 const ScheduleController = require("../controllers/scheduleController");
+const GroupController = require("../controllers/groupController");
 
 const routes = app => {
   //blog route
@@ -30,8 +31,10 @@ const routes = app => {
   app.delete("/schedules/:id", ScheduleController.delete);
 
   // group route
-  app.post("/groups", GroupController, create);
-  app.get("/groups", GroupController.fetchGroups);
+  app.post("/groups", GroupController.create);
+  app.get("/groups", GroupController.fetch);
+  app.put("/groups/:id", GroupController.edit);
+  app.delete("/groups/:id", GroupController.delete);
 };
 
 module.exports = routes;
