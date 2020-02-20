@@ -6,7 +6,7 @@ const GroupController = require("../controllers/groupController");
 const GroupPostController = require("../controllers/groupPostController");
 const GroupPostImageController = require("../controllers/groupPostImageController");
 const GroupPostCommentController = require("../controllers/GroupPostCommentController");
-
+const QuestionsController = require("../controllers/QuestionsController");
 const routes = app => {
   //blog route
   app.post("/blogs", BlogController.create);
@@ -81,6 +81,10 @@ const routes = app => {
   app.get("/groupPostComment", GroupPostCommentController.fetch);
   app.put("/groupPostComment", GroupPostCommentController.edit);
   app.delete("/groupPostComment", GroupPostCommentController.delete);
+
+  app.post("/questions", QuestionsController.create);
+  app.get("/questions", QuestionsController.index);
+  app.get("/questions/:questionId", QuestionsController.fetch);
 };
 
 module.exports = routes;
