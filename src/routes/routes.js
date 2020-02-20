@@ -55,17 +55,20 @@ const routes = app => {
   app.get("/groups/:id/groupImages", GroupController.getImage);
 
   // group post route
-  app.post("/groupPosts", GroupPostController.create);
+  app.post("/groups/:groupId/posts", GroupPostController.create);
   app.get("/groupPosts", GroupPostController.fetch);
   app.put("/groupPosts/:id", GroupPostController.edit);
   app.delete("/groupPosts/:id", GroupPostController.delete);
 
   // group post image route
   const uploadPostImage = multer({});
-
   app.post(
     "/groups/:groupId/posts/:postId/images",
-    uploadPostImage.single("groupPostImage"),
+    (req, res, next) => {
+      console.log("group post image");
+      next();
+    },
+    uploadPostImage.single("image"),
     GroupPostImageController.create
   );
 

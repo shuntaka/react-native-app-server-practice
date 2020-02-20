@@ -2,18 +2,26 @@ const sharp = require("sharp");
 const GroupPost = require("../models/GroupPost");
 
 const GroupPostController = {
-  create: (req, res, next) => {
-    const groupPost = {
-      date: new Date(),
-      title: req.body.title,
-      content: req.body.content,
-      group: req.body.group
-    };
-    GroupPost.create(groupPost)
-      .then(groupPost => {
-        res.send(groupPost);
-      })
-      .catch(next);
+  create: async (req, res, next) => {
+    console.log("create group post");
+    console.log(req.params.groupId);
+    console.log(req.body.content);
+
+    try {
+      const groupPost = await GroupPost.create({
+        date: new Date(),
+        title: req.body.title,
+        content: req.body.content,
+        group: req.params.groupId
+      });
+      res.send(groupPost);
+    } catch (error) {
+      next(error);
+    }
+    // .then(groupPost => {
+    //   res.send(groupPost);
+    // })
+    // .catch(next);
   },
   fetch: (req, res, next) => {
     const groupId = req.query.groupId;

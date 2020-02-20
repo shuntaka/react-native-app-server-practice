@@ -4,7 +4,6 @@ const Schema = mongoose.Schema;
 
 const GroupPostSchema = new Schema({
   date: Date,
-  title: String,
   content: String,
   image: Buffer,
   group: {
