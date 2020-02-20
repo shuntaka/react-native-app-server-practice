@@ -8,7 +8,8 @@ const GroupSchema = new Schema({
     type: String,
     unique: true
   },
-  groupImage: Buffer
+  groupImage: Buffer,
+  hasGroupImage: Boolean
 });
 
 GroupSchema.plugin(uniqueValidator);

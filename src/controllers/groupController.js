@@ -2,13 +2,15 @@ const Group = require("../models/Group");
 const sharp = require("sharp");
 const GroupController = {
   create: (req, res, next) => {
+    console.log("create group");
+    console.log(req.body);
     const group = {
       groupName: req.body.groupName,
-      groupColor: req.body.groupColor,
-      groupImageUrl: req.body.groupImageUrl
+      hasGroupImage: false
     };
     Group.create(group)
       .then(group => {
+        console.log(group);
         res.send(group);
       })
       .catch(next);
@@ -46,9 +48,11 @@ const GroupController = {
       .toBuffer();
     try {
       const group = await Group.findByIdAndUpdate(req.params.id, {
-        groupImage: resizedImageBinary
+        groupImage: resizedImageBinary,
+        hasGroupImage: true
       });
-      res.send();
+
+      res.send(group);
     } catch (error) {
       next(error);
     }

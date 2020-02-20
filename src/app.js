@@ -1,9 +1,11 @@
 const routes = require("./routes/routes");
 const express = require("express");
+const http = require("http");
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 
 const app = express();
+const httpServer = http.createServer(app);
 const mongoUri = process.env.MONGO || "mongodb://localhost:27017/nursery";
 
 mongoose.connect(mongoUri, {
@@ -25,4 +27,4 @@ app.use((err, req, res, next) => {
   res.status(422).send({ error: err.message });
 });
 
-module.exports = app;
+module.exports = httpServer;

@@ -43,6 +43,10 @@ const routes = app => {
   // group images
   app.post(
     "/groups/:id/groupImages",
+    (req, res, next) => {
+      console.log("upload image hit");
+      next();
+    },
     upload.single("groupImage"),
     GroupController.uploadImage
   );
