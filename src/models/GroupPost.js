@@ -6,7 +6,7 @@ const GroupPostSchema = new Schema({
   date: Date,
   title: String,
   content: String,
-  imageUrls: [String],
+  image: Buffer,
   group: {
     type: Schema.Types.ObjectId,
     ref: "group"

@@ -4,6 +4,7 @@ const CommentController = require("../controllers/commentController");
 const ScheduleController = require("../controllers/scheduleController");
 const GroupController = require("../controllers/groupController");
 const GroupPostController = require("../controllers/groupPostController");
+const GroupPostImageController = require("../controllers/groupPostImageController");
 const GroupPostCommentController = require("../controllers/GroupPostCommentController");
 
 const routes = app => {
@@ -39,7 +40,7 @@ const routes = app => {
   app.put("/groups/:id", GroupController.edit);
   app.delete("/groups/:id", GroupController.delete);
 
-  const upload = multer({});
+  const uploadGroupImage = multer({});
   // group images
   app.post(
     "/groups/:id/groupImages",
@@ -47,7 +48,7 @@ const routes = app => {
       console.log("upload image hit");
       next();
     },
-    upload.single("groupImage"),
+    uploadGroupImage.single("groupImage"),
     GroupController.uploadImage
   );
 
@@ -58,7 +59,20 @@ const routes = app => {
   app.get("/groupPosts", GroupPostController.fetch);
   app.put("/groupPosts/:id", GroupPostController.edit);
   app.delete("/groupPosts/:id", GroupPostController.delete);
-  app.post("");
+
+  // group post image route
+  const uploadPostImage = multer({});
+
+  app.post(
+    "/groups/:groupId/posts/:postId/images",
+    uploadPostImage.single("groupPostImage"),
+    GroupPostImageController.create
+  );
+
+  app.get(
+    "/groups/:groupId/posts/:postId/images",
+    GroupPostImageController.fetch
+  );
   //group post comments route
   app.post("/groupPostComment", GroupPostCommentController.create);
   app.get("/groupPostComment", GroupPostCommentController.fetch);
