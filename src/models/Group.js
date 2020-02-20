@@ -8,7 +8,7 @@ const GroupSchema = new Schema({
     type: String,
     unique: true
   },
-  groupColor: String
+  groupImage: Buffer
 });
 
 GroupSchema.plugin(uniqueValidator);

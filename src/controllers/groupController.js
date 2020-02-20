@@ -1,9 +1,11 @@
 const Group = require("../models/Group");
+const sharp = require("sharp");
 const GroupController = {
   create: (req, res, next) => {
     const group = {
       groupName: req.body.groupName,
-      groupColor: req.body.groupColor
+      groupColor: req.body.groupColor,
+      groupImageUrl: req.body.groupImageUrl
     };
     Group.create(group)
       .then(group => {
@@ -35,6 +37,26 @@ const GroupController = {
         res.send(group);
       })
       .catch(next);
+  },
+  // group images
+  uploadImage: async (req, res, next) => {
+    const resizedImageBinary = await sharp(req.file.buffer)
+      .resize({ width: 200, height: 200 })
+      .png()
+      .toBuffer();
+    try {
+      const group = await Group.findByIdAndUpdate(req.params.id, {
+        groupImage: resizedImageBinary
+      });
+      res.send();
+    } catch (error) {
+      next(error);
+    }
+  },
+  getImage: async (req, res, next) => {
+    const group = await Group.findById(req.params.id);
+    res.setHeader("Content-Type", "image/jpg");
+    res.send(group.groupImage);
   }
 };
 

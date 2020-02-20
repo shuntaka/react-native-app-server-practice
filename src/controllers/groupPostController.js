@@ -9,7 +9,7 @@ const GroupPostController = {
       group: req.body.group
     };
     GroupPost.create(groupPost)
-      .then(grouPost => {
+      .then(groupPost => {
         res.send(groupPost);
       })
       .catch(next);

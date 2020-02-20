@@ -1,3 +1,4 @@
+const multer = require("multer");
 const BlogController = require("../controllers/blogController");
 const CommentController = require("../controllers/commentController");
 const ScheduleController = require("../controllers/scheduleController");
@@ -37,6 +38,16 @@ const routes = app => {
   app.get("/groups", GroupController.fetch);
   app.put("/groups/:id", GroupController.edit);
   app.delete("/groups/:id", GroupController.delete);
+
+  const upload = multer({});
+  // group images
+  app.post(
+    "/groups/:id/groupImages",
+    upload.single("groupImage"),
+    GroupController.uploadImage
+  );
+
+  app.get("/groups/:id/groupImages", GroupController.getImage);
 
   // group post route
   app.post("/groupPosts", GroupPostController.create);
